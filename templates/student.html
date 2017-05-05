@@ -55,7 +55,6 @@
                         {% for time in available_times %}
                         <tr>
 
-<<<<<<< HEAD
                             <td>{{ time[0] }}</td>
                             
                         </tr>
@@ -63,26 +62,10 @@
                     </table>
                 </div>
             </div>
-=======
-            var dates = [];
-            var nxt_date = date;
-            var html = "";
-            for (i=0; i<=14; i++) {
-              if (weekday != 0 && weekday != 6){
-                  dates.push(""+nxt_date+"-"+month+"-"+year);
-                    html += "<label onClick=doSomething()>"+nxt_date+"-"+month+"-"+year +"</label>" + "<br>"
-                }
-                nxt_date += 1;
-                weekday += 1;
-                if (weekday == 6){
-                  weekday = 0;
-                }
-            }
-            document.getElementById("myDropdown").innerHTML = html;
+
           </script>
         </div>
        </div>
->>>>>>> 113eb156b8986516317940f0bbdc35c002005782
 
             <div class="row">
                 <div class="col-md-1">
@@ -103,39 +86,7 @@
                 </div>
             </div>
 
-<<<<<<< HEAD
       
-=======
-        // Close the dropdown menu if the user clicks outside of it
-        window.onclick = function(event) {
-          if (!event.target.matches('.dropbtn')) {
 
-            var dropdowns = document.getElementsByClassName("dropdown-content");
-            var i;
-            for (i = 0; i < dropdowns.length; i++) {
-              var openDropdown = dropdowns[i];
-              if (openDropdown.classList.contains('show')) {
-                openDropdown.classList.remove('show');
-              }
-            }
-          }
-        }
-      </script>
-
-
-
-
-
-<!-- 			<div class="row">
-				<div class="col-md-1">
-
-				</div>
-				<form action="/student" class="col-md-10" method="POST">
-				</form>
-				<div class="col-md-1">
-
-				</div>
-			</div> -->
->>>>>>> 113eb156b8986516317940f0bbdc35c002005782
 	</body>
 </html>
