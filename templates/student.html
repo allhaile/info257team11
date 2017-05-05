@@ -1,15 +1,21 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Welcome, {{username}}</title>
+		<title>Welcome {{username}}</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	</head>
+	<style>
+.bg-1 {
+		background-color: #37474f; /* Navy Blue */
+		color:#ffffff;
 
-	<body>
+}
+</style>
+	<body class="bg-1">
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-12">
@@ -33,7 +39,7 @@
 							<td>{{ app[1] }}</td>
 							<td>{{ app[2] }}</td>
 							<td>{{ app[3] }}</td>
-							
+
 						</tr>
 						{% endfor %}
  					</table>
@@ -49,6 +55,7 @@
                         {% for time in available_times %}
                         <tr>
 
+<<<<<<< HEAD
                             <td>{{ time[0] }}</td>
                             
                         </tr>
@@ -56,6 +63,26 @@
                     </table>
                 </div>
             </div>
+=======
+            var dates = [];
+            var nxt_date = date;
+            var html = "";
+            for (i=0; i<=14; i++) {
+              if (weekday != 0 && weekday != 6){
+                  dates.push(""+nxt_date+"-"+month+"-"+year);
+                    html += "<label onClick=doSomething()>"+nxt_date+"-"+month+"-"+year +"</label>" + "<br>"
+                }
+                nxt_date += 1;
+                weekday += 1;
+                if (weekday == 6){
+                  weekday = 0;
+                }
+            }
+            document.getElementById("myDropdown").innerHTML = html;
+          </script>
+        </div>
+       </div>
+>>>>>>> 113eb156b8986516317940f0bbdc35c002005782
 
             <div class="row">
                 <div class="col-md-1">
@@ -76,6 +103,39 @@
                 </div>
             </div>
 
+<<<<<<< HEAD
       
+=======
+        // Close the dropdown menu if the user clicks outside of it
+        window.onclick = function(event) {
+          if (!event.target.matches('.dropbtn')) {
+
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+              var openDropdown = dropdowns[i];
+              if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+              }
+            }
+          }
+        }
+      </script>
+
+
+
+
+
+<!-- 			<div class="row">
+				<div class="col-md-1">
+
+				</div>
+				<form action="/student" class="col-md-10" method="POST">
+				</form>
+				<div class="col-md-1">
+
+				</div>
+			</div> -->
+>>>>>>> 113eb156b8986516317940f0bbdc35c002005782
 	</body>
 </html>
