@@ -52,18 +52,58 @@ def loginScreen():
 					return redirect("/login")
 
 
-@app.route("/student/<int:id>")
+@app.route("/student/<int:id>", methods=["GET", "POST"])
 def studentPage(id):
-	print("\n\n")
-	print(id)
-	con = lite.connect("UCBerkeley.db")
-	with con:
+	print(request.method)
+	if request.method == "GET":
+		print("\n\n")
+		print(id)
+		con = lite.connect("UCBerkeley.db")
+		with con:
+			cur = con.cursor()
+			cur.execute("SELECT Counselor.counselorID from Student, Counselor WHERE Student.majorName = Counselor.majorName AND Student.studentID = " + str(id) + ";")
+			counselor_id = cur.fetchone()[0]
+			cur.execute("SELECT distinct hour, appDate, counselorName, roomNum, Counselor.counselorID FROM Appointment INNER JOIN Counselor on Appointment.counselorID = Counselor.counselorID WHERE studentID =" + str(id) + " ORDER BY hour ASC;")
+			app_name = cur.fetchall()
+			print "BABABABA"
+			print(counselor_id)
+
+
+			print(app_name)
+			cur.execute("SELECT hour FROM Appointment WHERE appDate = '05/6/2017' and Appointment.counselorID = " + str(counselor_id) + ";"); 
+			all_times = [(u'8:00 AM',), (u'8:30 AM',), (u'9:00 AM',), (u'9:30 AM',), (u'10:00 AM',), (u'10:30 AM',), (u'11:00 AM',), (u'11:30 AM',),
+			(u'12:00 PM',), (u'12:30 PM',), (u'1:00 PM',), (u'1:30 PM',), (u'2:00 PM',), (u'2:30 PM',), (u'3:00 PM',), (u'3:30 PM',)]
+			appointments = cur.fetchall()
+			available_times = [i for i in all_times if i not in appointments]
+			print available_times
+			print("HAHAHAHAHAHA")
+			print appointments
+			student_id = "/student/" + str(id)
+
+			cur.execute("SELECT * from Appointment;")
+			appointments_now = cur.fetchall()
+			print("DID IT UPDATE OUR TABLE??????")
+
+			return render_template("student.html", **locals())
+	else:
+		counselorID = request.form['counselorID']
+		print("++++++++++++++++",counselorID, "++++++++++++++")
+		hour = request.form['hour']
+		potential_hours = ['8:00 AM', '8:30 AM', '9:00 AM', '9:30 AM', '10:00 AM', '10:30 AM', '11:00 AM', '11:30 AM', '12:00 PM', '12:30 PM', '1:00 PM',
+		'1:30 PM', '2:00 PM', '2:30 PM', '3:00 PM', '3:30 PM', '4:00 PM', '4:30 PM']
+		if(hour not in potential_hours):
+			print("am i in here")
+			return redirect("/student/" + str(id))
+		print counselorID
+		appDate = '05/6/2017'
+		con = lite.connect("UCBerkeley.db")
 		cur = con.cursor()
-		cur.execute("SELECT distinct hour, appDate, counselorName, roomNum FROM Appointment INNER JOIN Counselor on Appointment.counselorID = Counselor.counselorID WHERE studentID =" + str(id))
-		app_name = cur.fetchall()
-		print(app_name)
-		return render_template("student.html", **locals())
-	'''
+		cur.execute("insert into Appointment (counselorID, studentID, hour , appDate) values ('{}', '{}','{}', '{}')".format(counselorID, id, hour, appDate))
+		cur.execute("SELECT * from Appointment;")
+		all_appointments = cur.fetchall()
+		con.commit()
+		return redirect("/student/" + str(id) )	
+		'''
 	if request.method == "GET":
 		con = lite.connect("UCBerkeley.db")
 		with con:
@@ -92,7 +132,7 @@ def counselorPage(id):
 	con = lite.connect("UCBerkeley.db")
 	with con:
 		cur = con.cursor()
-		cur.execute("SELECT studentName, hour, appDate, Student.studentID FROM Appointment INNER JOIN Student ON Appointment.studentID = Student.studentID WHERE Appointment.counselorID = " + str(id))
+		cur.execute("SELECT studentName, hour, appDate, Student.studentID FROM Appointment INNER JOIN Student ON Appointment.studentID = Student.studentID WHERE Appointment.counselorID = " + str(id) + " ORDER BY hour ASC;")
 		apps = cur.fetchall()
 
 		return render_template("counselor.html", **locals())

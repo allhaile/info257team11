@@ -40,111 +40,42 @@
 				</div>
 			</div>
 
-      <div class="dropdown">
-        <button onclick="myFunction()" class="dropbtn">CHOOSE APPT DAY LMAO CLICK HERE</button>
-        <div id="myDropdown" class="dropdown-content">
-          <script type="text/javascript">  <!--this is just getting date stuff, can ignore-->
-            var d = new Date();
-            var time = d.getTime();
-            var date = d.getDate();
-            var month = d.getMonth();
-            var year = d.getFullYear();
-            var weekday = d.getDate();
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table">
+                        <tr>
+                            <th>05/06/2017</th>
+                            </tr>
+                        {% for time in available_times %}
+                        <tr>
 
-            var dates = [];
-            var nxt_date = date;
-            var html = "";
-            for (i=0; i<=14; i++) {
-              if (weekday != 0 && weekday != 6){
-                  dates.push(""+nxt_date+"-"+month+"-"+year);  
-                    html += "<label onClick=doSomething()>"+nxt_date+"-"+month+"-"+year +"</label>" + "<br>"
-                }
-                nxt_date += 1;
-                weekday += 1;
-                if (weekday == 6){
-                  weekday = 0;
-                }
-            }
-            document.getElementById("myDropdown").innerHTML = html;
-          </script>
-        </div>
-       </div>
+                            <td>{{ time[0] }}</td>
+                            
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
 
-      <style type="text/css">
-        .demo { position: relative; }
-        .demo i {
-          position: absolute; bottom: 10px; right: 24px; top: auto; cursor: pointer;
-        }
-        .dropbtn {
-            background-color: #4CAF50;
-            color: white;
-            padding: 16px;
-            font-size: 16px;
-            border: none;
-            cursor: pointer;
-        }
-        .dropbtn:hover, .dropbtn:focus {
-            background-color: #3e8e41;
-        }
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1;
-        }
-        .dropdown-content label {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
-        .dropdown-content label:hover {background-color: #f1f1f1}
-        .show {display:block;}
-      </style>
+            <div class="row">
+                <div class="col-md-1">
 
-      <script language="JavaScript">
-        function myFunction() {
-            document.getElementById("myDropdown").classList.toggle("show");
-        }
-        function doSomething() {
-        	console.log("hi hello");
-        }
+                </div>
+                <form action={{student_id}} class="col-md-10" method="POST">
+                    <div class="form-group">
+                        <label for="hour">Input Hour:</label>
+                        <input type="text" class="form-control" id="hour" name="hour">
+                    </div>
+                    <div class="form-group">
+                        <input type="hidden" class="form-control" id="counselorID" name="counselorID" value= {{ counselor_id }}>
+                    </div>
+                    <button type="submit" class="btn btn-default">make appointment</button>
+                </form>
+                <div class="col-md-1">
+                
+                </div>
+            </div>
 
-        // Close the dropdown menu if the user clicks outside of it
-        window.onclick = function(event) {
-          if (!event.target.matches('.dropbtn')) {
-
-            var dropdowns = document.getElementsByClassName("dropdown-content");
-            var i;
-            for (i = 0; i < dropdowns.length; i++) {
-              var openDropdown = dropdowns[i];
-              if (openDropdown.classList.contains('show')) {
-                openDropdown.classList.remove('show');
-              }
-            }
-          }
-        }
-      </script>
-	    
-
-
-
-
-<!-- 			<div class="row">
-				<div class="col-md-1">
-
-				</div>
-				<form action="/student" class="col-md-10" method="POST">
-				</form>
-				<div class="col-md-1">
-				
-				</div>
-			</div> -->
+      
 	</body>
 </html>
