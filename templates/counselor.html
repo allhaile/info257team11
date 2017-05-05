@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Our Book App</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	</head>
+
+	<body>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12">
+					<h1>Appointments</h1>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<table class="table">
+						<tr>
+							<th>Student Name</th>
+							<th>Hour</th>
+							<th>Date</th>
+						</tr>
+						
+						{% for app in apps %}
+							<tr>
+								<td> <a onclick="window.location='/studentInfo/' 
+   + {{ app[3] }};return false;" href="#">{{ app[0] }}</a></td> 
+								<td>{{ app[1] }}</td>
+								<td>{{ app[2] }}</td>
+							</tr>
+						{% endfor %}
+					</table>
+				</div>
+			</div>
+
+
+		</div>
+	</body>
+</html>
